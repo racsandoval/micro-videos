@@ -1,18 +1,21 @@
 import UniqueEntityId from '../../../shared/domain/value-objects/unique-entity-id.vo';
+import Entity from '../../../shared/domain/entity/entity';
 
 export type CategoryProperties = {
   name: string,
   description?: string,
   is_active?: boolean,
   created_at?: Date,
-
 }
 
-export class Category {
-  public readonly id: UniqueEntityId;
+type CategoryUpdateProperties = {
+  name?: string,
+  description?: string,
+}
 
+export class Category extends Entity<CategoryProperties> {
   constructor(public readonly props: CategoryProperties, id?: UniqueEntityId) {
-    this.id = id ?? new UniqueEntityId();
+    super(props, id)
     this.description = this.props.description;
     this.is_active = this.props.is_active;
     this.props.created_at = this.props.created_at ?? new Date();
@@ -22,11 +25,15 @@ export class Category {
     return this.props.name;
   }
 
+  private set name(value: string) {
+    this.props.name = value ?? null;
+  }
+
   get description() {
     return this.props.description
   }
 
-  private set description (value: string) {
+  private set description(value: string) {
     this.props.description = value ?? null;
   }
 
@@ -40,5 +47,18 @@ export class Category {
 
   get created_at() {
     return this.props.created_at
+  }
+
+  update(props: CategoryUpdateProperties) {
+    this.name = props.name ?? this.name;
+    this.description = props.description ?? this.description;
+  }
+
+  activate() {
+    this.is_active = true;
+  }
+
+  deactivate() {
+    this.is_active = false;
   }
 }

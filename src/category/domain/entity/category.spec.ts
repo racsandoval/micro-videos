@@ -34,13 +34,16 @@ describe('Category Unit Tests', () => {
     testInputs.forEach((input) => {
       const category = new Category(input.props, input.id);
       expect(category.id).not.toBeNull;
-      expect(category.id).toBeInstanceOf(UniqueEntityId);
+      expect(category.uniqueEntityId).toBeInstanceOf(UniqueEntityId);
     });
   });
 
-  test('getter of name prop', () => {
+  test('getter and setter of name prop', () => {
     const category = new Category({ name: 'Movie' });
     expect(category.name).toBe('Movie');
+
+    category['name'] = 'other Movie';
+    expect(category.name).toBe('other Movie')
   });
 
   test('getter and setter of description prop', () => {
@@ -81,4 +84,40 @@ describe('Category Unit Tests', () => {
     category = new Category({ name: 'Movie', created_at });
     expect(category.created_at).toBe(created_at);
   });
+
+  test('update function', () =>{
+    let category = new Category({ name: 'Movie', description: 'Description' });
+    category.update({ name: 'other Movie' });
+    expect(category.name).toBe('other Movie');
+    expect(category.description).toBe('Description');
+
+    category = new Category({ name: 'Movie', description: 'Description' });
+    category.update({ description: 'other Description' });
+    expect(category.name).toBe('Movie');
+    expect(category.description).toBe('other Description');
+
+    category = new Category({ name: 'Movie', description: 'Description' });
+    category.update({ name: 'other Movie', description: 'other Description' });
+    expect(category.name).toBe('other Movie');
+    expect(category.description).toBe('other Description');
+
+    category = new Category({ name: 'Movie', description: 'Description' });
+    category.update({});
+    expect(category.name).toBe('Movie');
+    expect(category.description).toBe('Description');
+  });
+
+  test('activate function', () => {
+    const category = new Category({ name: 'Movie', is_active: false });
+    expect(category.is_active).toBeFalsy;
+    category.activate();
+    expect(category.is_active).toBeTruthy;
+  });
+
+  test('deactivate function', () => {
+    const category = new Category({ name: 'Movie' });
+    expect(category.is_active).toBeTruthy;
+    category.deactivate();
+    expect(category.is_active).toBeFalsy;
+  }); 
 });
