@@ -1,5 +1,5 @@
 import { v4 as uuidv4, validate as uuidValidate } from 'uuid';
-import InvaludUuidError from '../../errors/invalid-uuid.error';
+import InvaludUuidError from '../errors/invalid-uuid.error';
 import ValueObject from './value-object';
 
 export default class UniqueEntityId extends ValueObject<string> {
