@@ -1,0 +1,17 @@
+{
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "decorators": true
+    },
+    "baseUrl": ".",
+    "paths": {
+      "#core/*": [
+        "./shared/*"
+      ],
+      "#category/*": [
+        "./category/*"
+      ]
+    }
+  }
+}

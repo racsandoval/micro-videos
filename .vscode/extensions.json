@@ -1,5 +1,6 @@
 {
   "recommendations": [
-    "SonarSource.sonarlint-vscode"
+    "sonarsource.sonarlint-vscode",
+    "humao.rest-client"
   ]
 }
