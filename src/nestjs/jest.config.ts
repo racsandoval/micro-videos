@@ -8,7 +8,7 @@ export default {
     "json",
     "ts"
   ],
-  rootDir: "src",
+  rootDir: "./src",
   testRegex: ".*\\.spec\\.ts$",
   transform: {
     "^.+\\.(t|j)s$": "@swc/jest"

@@ -4,7 +4,7 @@
       "syntax": "typescript",
       "decorators": true
     },
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
       "#core/*": [
         "./shared/*"

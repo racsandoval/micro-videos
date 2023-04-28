@@ -1,4 +1,3 @@
-import { Category } from 'category/domain/entity/category';
 import Entity from '../../entity/entity';
 import NotFoundError from '../../errors/not-found.error';
 import UniqueEntityId from '../../value-objects/unique-entity-id.vo';
@@ -9,9 +8,9 @@ type StubEntityProps = {
   price: number;
 }
 
-class StubEntity extends Entity<StubEntityProps> {}
+class StubEntity extends Entity<StubEntityProps> { }
 
-class StubInMemoryRepository extends InMemoryRepository<StubEntity> {}
+class StubInMemoryRepository extends InMemoryRepository<StubEntity> { }
 
 describe('InMemoryRepository Unit Tests', () => {
   let repository: StubInMemoryRepository;
@@ -28,9 +27,9 @@ describe('InMemoryRepository Unit Tests', () => {
   });
 
   it('should throw error when entity not found', async () => {
-    expect(repository.findById('fake id')).rejects.toThrow(new NotFoundError('Entity not found using ID fake id'))
+    await expect(repository.findById('fake id')).rejects.toThrow(new NotFoundError('Entity not found using ID fake id'))
 
-    expect(repository.findById(new UniqueEntityId('cf317fac-e99b-4917-97fd-fcb11320a9ad')))
+    await expect(repository.findById(new UniqueEntityId('cf317fac-e99b-4917-97fd-fcb11320a9ad')))
       .rejects
       .toThrow(new NotFoundError('Entity not found using ID cf317fac-e99b-4917-97fd-fcb11320a9ad'))
   });
